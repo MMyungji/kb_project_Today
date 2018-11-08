@@ -1,6 +1,7 @@
----
+---yml
 applications:
-- name: kb_today
+- name: today
   memory: 512M
   instances: 1
-  random-route: false
+  disk_quota: 2024M
+  random-route: true
