@@ -11,22 +11,23 @@ router.put('/', multiUpload, async(req, res, next) => {
     let readProfile = 'select * from USER where user_idx = ?';
     let updateProfile = 'update USER set ? where user_idx = ?';
 
-    console.log(1);
+    console.log(ID);
+
     if(ID!=-1){
     	let profile = await db.execute3(readProfile, ID);
         console.log(profile);
     	if (profile.length === 0){
-            console.log(2);
             res.status(403).send({
                 message: 'profile does not exist'
             });
         }
         else{
-            console.log("ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄹ", req.files.profile_url);
         	let data = {
                 name : req.body.name ? req.body.name : profile[0].name,
-                profile_url : req.files.profile_url ? req.files.profile_url[0].location : profile[0].profile_url
-
+                profile_url : req.files.profile_url ? req.files.profile_url[0].location : profile[0].profile_url,
+                goal : req.body.goal ? req.body.goal : profile[0].goal,
+                goal_money : req.body.goal_money ? req.body.goal_money : profile[0].goal_money,
+                push_time : req.body.push_time ? req.body.push_time : profile[0].push_time
             };
             let result = await db.execute3(updateProfile, data, ID);
             console.log(result);
