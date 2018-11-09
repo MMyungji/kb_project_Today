@@ -9,7 +9,7 @@ router.use('/signup', signup);
 const signin = require('./signin');
 router.use('/signin', signin);
 
-//const updateUser = require('./user');
-//router.use('/user', updateUser);
+const updateUser = require('./updateUser');
+router.use('/user', updateUser);
 
 module.exports = router;

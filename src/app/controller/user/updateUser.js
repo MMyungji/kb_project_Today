@@ -4,26 +4,32 @@ const db = require('../../module/pool.js');
 const jwt = require('../../module/jwt.js');
 const upload = require('../../../config/multer');
 
-var multiUpload = upload.fields([{ name: 'profile_img' }]);
+var multiUpload = upload.fields([{ name: 'profile_url' }]);
 
 router.put('/', multiUpload, async(req, res, next) => {
 	const ID = jwt.verify(req.headers.authorization);
     let readProfile = 'select * from USER where user_idx = ?';
     let updateProfile = 'update USER set ? where user_idx = ?';
 
-
+    console.log(1);
     if(ID!=-1){
     	let profile = await db.execute3(readProfile, ID);
-    	if (profile.length === 0)
+        console.log(profile);
+    	if (profile.length === 0){
+            console.log(2);
             res.status(403).send({
                 message: 'profile does not exist'
             });
+        }
         else{
+            console.log("ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄹ", req.files.profile_url);
         	let data = {
-                profile_img : req.files.profile_img ? req.files.profile_img[0].location : profile[0].profile_img
+                name : req.body.name ? req.body.name : profile[0].name,
+                profile_url : req.files.profile_url ? req.files.profile_url[0].location : profile[0].profile_url
+
             };
             let result = await db.execute3(updateProfile, data, ID);
-            //console.log(result);
+            console.log(result);
             if(result){
                 res.status(200).send({
                     message: 'update success'
@@ -39,7 +45,6 @@ router.put('/', multiUpload, async(req, res, next) => {
             message: "access denied"
         });
     }
-
 });
 
 module.exports = router;

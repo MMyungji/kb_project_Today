@@ -1,7 +1,6 @@
----yml
+---
 applications:
 - name: today
   memory: 512M
   instances: 1
-  disk_quota: 2024M
-  random-route: true
+  random-route: false
