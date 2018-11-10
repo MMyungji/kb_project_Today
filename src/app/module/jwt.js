@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const _ = require('lodash');
 const secretKey = require('../../config/secretKey').key;
 //jwt 모듈화
 module.exports = {

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../../module/pool.js');
+const jwt = require('../../module/jwt');
 const signup = require('../../model/req/SignupReq');
 
 // 이메일 중복 체크
 
-router.get('/check', async (req, res, next) => {
+router.get('/check',async (req, res, next) => {
     const user_ID = req.query.id;
     const QUERY = 'select * from USER where user_ID = ?';
 

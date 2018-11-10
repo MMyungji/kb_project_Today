@@ -10,6 +10,9 @@ router.use('/', feeling);
 const saving = require('./controller/saving/saving_routes');
 router.use('/', saving);
 
+const follow = require('./controller/follow/follow_routes');
+router.use('/', follow);
+
 const change = require('./controller/change');
 router.use('/change', change);
 

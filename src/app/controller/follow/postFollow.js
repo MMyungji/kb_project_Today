@@ -1,18 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('../../module/jwt.js');
-let feeling = require('../../model/schema/feeling');
-const pool = require('../../module/pool.js');
-
+const db = require('../../module/pool.js');
+let follow = require('../../model/schema/follow');
 
 router.post('/', async (req, res, next) => {
 
     const ID = jwt.verify(req.headers.authorization);
     
     if (ID != -1) {
-        await feeling.create({
-            good: req.body.good,
-            bad: req.body.bad,
+        await saving.create({
+            saving_money: req.body.saving_money,
             comment: req.body.comment,
             user_idx: ID
         }, async function (err, docs) {
