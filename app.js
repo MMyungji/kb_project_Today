@@ -23,6 +23,11 @@ app.use(helmet())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+//jwt 토큰 키
+app.set('jwt-secret', config.key);
+//해쉬 키
+app.set('hash-secret', hash.key);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

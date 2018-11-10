@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
   let data = new Array();
 
   var random = Math.floor(Math.random() * 3) + 1;
-  console.log(random);
+
   const comfort = 'select * from COMFORT where comfort_idx = ?';
   let result = await db.execute2(comfort, random);
   if(!result){
@@ -43,6 +43,7 @@ router.get('/', async (req, res, next) => {
                     temp.comment = result[i].comment;
                     
                     data.push(temp);
+
                 }
                 res.status(200).send({
                     message: "success",
