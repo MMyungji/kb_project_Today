@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var config = require('./src/config/secretKey');
 var hash = require('./src/config/hashKey');
+var helmet = require('helmet');
 
 var routes = require('./src/app/routes');
 
@@ -13,6 +14,10 @@ var mongoose = require('./src/config/mongoose.js');
 mongoose();
 
 var app = express();
+
+const cors = require('cors');
+app.use(cors());
+app.use(helmet())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

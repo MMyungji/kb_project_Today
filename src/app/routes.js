@@ -10,4 +10,7 @@ router.use('/', feeling);
 const saving = require('./controller/saving/saving_routes');
 router.use('/', saving);
 
+const change = require('./controller/change');
+router.use('/change', change);
+
 module.exports = router;
