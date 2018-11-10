@@ -7,6 +7,7 @@ let saving = require('../../model/schema/saving');
 router.get('/', function (req, res) {
     const ID = jwt.verify(req.headers.authorization);
     var data = new Array();
+    var totalMoney = 0;
 
     saving.find({
             user_idx: ID
@@ -26,12 +27,15 @@ router.get('/', function (req, res) {
                     temp.saving_at = result[i].saving_at;
                     temp.saving_money = result[i].saving_money;
                     temp.comment = result[i].comment;
+                    totalMoney += result[i].saving_money;
+
                     
                     data.push(temp);
                 }
                 res.status(200).send({
                     message: "success",
-                    result : data
+                    totalMoney : totalMoney,
+                    data : data
                 });
             }
         }).sort({ saving_at: -1 }).limit(20);

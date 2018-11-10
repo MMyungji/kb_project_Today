@@ -8,6 +8,8 @@ const pool = require('../../module/pool.js');
 router.post('/', async (req, res, next) => {
 
     const ID = jwt.verify(req.headers.authorization);
+    console.log("1",req.headers.authorization);
+    console.log("2",ID);
 
     if (ID != -1) {
         await feeling.create({
