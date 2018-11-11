@@ -6,8 +6,9 @@ let feeling = require('../../model/schema/feeling');
 
 router.get('/', async (req, res, next) => {
   const ID = jwt.verify(req.headers.authorization);
-  let data = new Array();
-  
+  let data1 = new Array();
+  let data2 = new Array();
+
   if (ID != -1) {
 
     var random = Math.floor(Math.random() * 3) + 1;
@@ -22,7 +23,7 @@ router.get('/', async (req, res, next) => {
     let temp1 = {
       comfort_img : result[0].message
     }
-    data.push(temp1);
+    data1.push(temp1);
 
 
     feeling.find({
@@ -44,12 +45,13 @@ router.get('/', async (req, res, next) => {
           temp.good = result[i].good;
           temp.comment = result[i].comment;
           
-          data.push(temp);
+          data2.push(temp);
 
         }
         res.status(200).send({
           message: "success",
-          data: data
+          comfortImg: data1,
+          data: data2
 
         });
       }
