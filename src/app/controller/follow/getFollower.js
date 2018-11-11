@@ -16,14 +16,12 @@ router.get('/', async (req, res) => {
     for(i = 0; i < result.length; i++) {
       let profile = await db.execute2(readProfile, result[i].to_idx);
       let temp = {
-        follower_idx: '',
         profile_img: '',
         id: '',
         name: '',
         following: ''
       }
 
-      temp.follower_idx = result[i].to_idx;
       temp.profile_img = profile[0].profile_url;
       temp.id = profile[0].user_ID;
       temp.name = profile[0].name;
