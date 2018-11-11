@@ -3,12 +3,13 @@ const router = express.Router();
 const jwt = require('../../module/jwt.js');
 const db = require('../../module/pool.js');
 let saving = require('../../model/schema/saving');
-const usercheck = require('../../module/userCheck');
+const usercheck = require('../../module/userCheck.js');
 
 
 router.get('/', function (req, res) {
     const ID = jwt.verify(req.headers.authorization);
     var data = new Array();
+    let now = new Date();
     var totalMoney = 0;
 
     if (ID != -1) {
@@ -28,7 +29,10 @@ router.get('/', function (req, res) {
               saving_money : "",
               comment : ""
             }
-            temp.saving_at = result[i].saving_at;
+
+            let local =new Date(result[i].saving_at.getTime() - (result[i].saving_at.getTimezoneOffset()*60000));
+
+            temp.saving_at = local;
             temp.saving_money = result[i].saving_money;
             temp.comment = result[i].comment;
             totalMoney += result[i].saving_money;

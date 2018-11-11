@@ -3,8 +3,9 @@ var Schema = mongoose.Schema;
 
 var followSchema = new Schema({
     user_idx : Number,
-    follow_user : Number,
-    following : Boolean
+    follower_idx : Number,
+    follower_idx : String,
+    following : Boolean //상대방이 나를 팔로잉?
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });
