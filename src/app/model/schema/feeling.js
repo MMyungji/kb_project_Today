@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var feelingSchema = new Schema({
-    feeling_at : {type : Date, default : Date.now},
+    today_at : String,
     user_idx : Number,
     good : Number,
     bad : Number,

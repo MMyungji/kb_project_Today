@@ -30,6 +30,7 @@ router.put('/', multiUpload, async(req, res, next) => {
                 push_time : req.body.push_time ? req.body.push_time : profile[0].push_time
             };
             let result = await db.execute3(updateProfile, data, ID);
+            //console.log(req.files.profile_url[0].location);
             console.log(result);
             if(result){
                 res.status(200).send({

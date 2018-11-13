@@ -4,6 +4,9 @@ const router = express.Router();
 const postFeeling = require('./postFeeling');
 router.use('/feeling', postFeeling);
 
+const getFeeling = require('./getFeeling');
+router.use('/feeling', getFeeling);
+
 const getcomfort = require('./getcomfort');
 router.use('/comfort', getcomfort);
 

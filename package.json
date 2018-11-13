@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node_modules/babel-cli/bin/babel-node.js ./bin/www",
-    "start:dev": "node ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "aws-sdk": "^2.351.0",
@@ -17,6 +16,7 @@
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
+    "moment": "^2.22.2",
     "mongoose": "^5.3.10",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
@@ -32,5 +32,9 @@
     "plugins": [
       "transform-async-to-generator"
     ]
+  },
+  "engines": {
+    "node": "10.10.0",
+    "npm": "6.4.1"
   }
 }
