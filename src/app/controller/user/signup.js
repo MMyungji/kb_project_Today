@@ -6,8 +6,8 @@ const signup = require('../../model/req/SignupReq');
 
 // 이메일 중복 체크
 
-router.get('/check',async (req, res, next) => {
-    const user_ID = req.query.id;
+router.post('/check',async (req, res, next) => {
+    const user_ID = req.body.id;
     const QUERY = 'select * from USER where user_ID = ?';
 
     let checkResult = await db.execute2(QUERY, user_ID);
