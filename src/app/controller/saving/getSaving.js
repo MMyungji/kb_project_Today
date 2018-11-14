@@ -12,6 +12,8 @@ router.get('/', function (req, res) {
     let now = new Date();
     var totalMoney = 0;
 
+    const today_at = mmt().format("YYYY-MM-DD");
+
     if (ID != -1) {
 
       saving.find({

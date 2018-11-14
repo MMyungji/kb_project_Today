@@ -13,8 +13,8 @@ router.use('/', saving);
 const follow = require('./controller/follow/follow_routes');
 router.use('/', follow);
 
-const community = require('./controller/community/community_routes');
-router.use('/', community);
+const search = require('./controller/search/search_routes');
+router.use('/', search);
 
 const change = require('./controller/change');
 router.use('/change', change);

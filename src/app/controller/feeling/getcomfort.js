@@ -37,11 +37,11 @@ router.get('/', async (req, res, next) => {
         for (let i = 0; i < result.length; i++) {
           
           let temp = {
-            feeling_at : "",
+            today_at : "",
             good : "",
             comment : ""
           }
-          temp.feeling_at = result[i].feeling_at;
+          temp.today_at = result[i].today_at;
           temp.good = result[i].good;
           temp.comment = result[i].comment;
           
@@ -55,7 +55,7 @@ router.get('/', async (req, res, next) => {
 
         });
       }
-    }).sort({ feeling_at: -1 }).limit(3);
+    }).sort({ today_at: -1 }).limit(3);
   } else {
     res.status(401).send({
       message: "access denied"

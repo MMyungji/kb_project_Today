@@ -33,9 +33,6 @@ router.get('/:today', async (req, res) => {
                 message: "get today's feeling fail"
               });
             } else {
-              console.log(00, result);
-              console.log(0, result.length);
-
               for (let j = 0; j < result.length; j++) {
 
                 let temp = {
@@ -54,15 +51,10 @@ router.get('/:today', async (req, res) => {
                 temp.bad = result[j].bad;
                 temp.comment = result[j].comment;
 
-                console.log(1, temp);
-
                 data.push(temp);
               } //for
-
-              console.log(11,data);
             } //async else
           });
-          console.log(2,data);
         }
         else{
           return res.status(405).send({
@@ -71,15 +63,10 @@ router.get('/:today', async (req, res) => {
         }
 
       }
-      console.log(3,data);
-
       res.status(200).send({
         message: "success",
         data: data
       });
-
-
-
 
     }else{
       return res.status(405).send({

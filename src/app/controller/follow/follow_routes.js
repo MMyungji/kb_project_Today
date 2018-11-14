@@ -13,4 +13,8 @@ router.use('/following', getFollowing);
 const deleteFollow = require('./deleteFollow');
 router.use('/follow', deleteFollow);
 
+
+const getFollowList = require('./getFollowList');
+router.use('/follow', getFollowList);
+
 module.exports = router;

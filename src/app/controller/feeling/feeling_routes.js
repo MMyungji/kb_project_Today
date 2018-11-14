@@ -5,7 +5,7 @@ const postFeeling = require('./postFeeling');
 router.use('/feeling', postFeeling);
 
 const getFeeling = require('./getFeeling');
-router.use('/feeling', getFeeling);
+router.use('/today', getFeeling);
 
 const getcomfort = require('./getcomfort');
 router.use('/comfort', getcomfort);

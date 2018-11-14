@@ -16,9 +16,6 @@ router.get('/', async (req, res) => {
     let following = await db.execute2(countFollowing, ID);
     let follower = await db.execute2(countFollower, ID);
     
-    console.log(1, result[0]);
-    console.log(2, follower[0]);
-    console.log(3, following[0]);
     
     let temp = {
       profile_url: '',
