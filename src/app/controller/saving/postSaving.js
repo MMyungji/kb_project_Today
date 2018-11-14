@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('../../module/jwt.js');
+const db = require('../../module/pool.js');
 let saving = require('../../model/schema/saving');
+const push = require('../../module/push.js');
 
 router.post('/', async (req, res, next) => {
 
     const ID = jwt.verify(req.headers.authorization);
+    const QUERY = 'select * from USER where user_idx = ?';
+    data = await db.execute2(QUERY, ID);
 
     if (ID != -1) {
         await saving.create({
@@ -18,6 +22,7 @@ router.post('/', async (req, res, next) => {
                     message: "fail"
                 });
             } else {
+                push.saveMoney(ID);
                 res.status(201).send({
                     message: "success"
                 }); 

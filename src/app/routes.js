@@ -16,6 +16,9 @@ router.use('/', follow);
 const search = require('./controller/search/search_routes');
 router.use('/', search);
 
+const box = require('./controller/box/box_routes');
+router.use('/', box);
+
 const change = require('./controller/change');
 router.use('/change', change);
 
