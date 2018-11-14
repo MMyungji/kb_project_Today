@@ -12,7 +12,4 @@ router.use('/signin', signin);
 const updateUser = require('./updateUser');
 router.use('/user', updateUser);
 
-const getUser = require('./getUser');
-router.use('/user', getUser);
-
 module.exports = router;
