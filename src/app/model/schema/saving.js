@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var savingSchema = new Schema({
-    saving_at : {type : Date, default : Date.now},
+    saving_at : String,
     user_idx : Number,
     saving_money : Number,
     comment : String

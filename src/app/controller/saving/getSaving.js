@@ -12,8 +12,6 @@ router.get('/', function (req, res) {
     let now = new Date();
     var totalMoney = 0;
 
-    const today_at = mmt().format("YYYY-MM-DD");
-
     if (ID != -1) {
 
       saving.find({
@@ -32,9 +30,8 @@ router.get('/', function (req, res) {
               comment : ""
             }
 
-            let local =new Date(result[i].saving_at.getTime() - (result[i].saving_at.getTimezoneOffset()*60000));
-
-            temp.saving_at = local;
+            
+            temp.saving_at = result[i].saving_at;
             temp.saving_money = result[i].saving_money;
             temp.comment = result[i].comment;
             totalMoney += result[i].saving_money;
@@ -48,7 +45,7 @@ router.get('/', function (req, res) {
             data : data
           });
         }
-      }).sort({ saving_at: -1 }).limit(20);
+      }).sort({ _id : -1 }).limit(20);
     } else {
       res.status(401).send({
         message: "access denied"

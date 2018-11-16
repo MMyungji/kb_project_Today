@@ -55,7 +55,7 @@ router.get('/', async (req, res, next) => {
 
         });
       }
-    }).sort({ today_at: -1 }).limit(3);
+    }).sort({ _id: -1 }).limit(3);
   } else {
     res.status(401).send({
       message: "access denied"

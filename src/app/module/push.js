@@ -1,5 +1,5 @@
 const db = require('../module/pool.js');
-const fcmmodule = require('../module/fcm.js');
+const fcm = require('../module/fcm.js');
 let saving = require('../model/schema/saving');
 
 /**
@@ -36,7 +36,7 @@ module.exports = {
         var totalMoney = 0;
 
         let query = 'select * from USER where user_idx = ?';
-        let goal = await db.execute2(query,ID)
+        let goal = await db.execute2(query,user_idx);
 
         if(!goal || goal == undefined){
             return -1;
@@ -45,7 +45,7 @@ module.exports = {
             let goalMoney = goal[0].goal_money;
 
             await saving.find({
-                user_idx: ID
+                user_idx: user_idx
             }, async function (err, result) {
                 if (err) {
                     return -1;
@@ -67,7 +67,7 @@ module.exports = {
                 msg: msg
             };
 
-            await fcm.send(message, function(err, response){
+            await fcm.send(user_idx, message, function(err, response){
                 if (err) {
                     console.log("Push메시지 발송에 실패했습니다.");
                     return;

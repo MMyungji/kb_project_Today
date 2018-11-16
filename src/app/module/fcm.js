@@ -5,18 +5,23 @@ const fcm = new FCM(fcmserverkey);
 
 module.exports = {
 
-  fcmSend: async (...args) => {
+  send: async (...args) => {
 
     let user_idx = args[0];
-    let projet_name = args[1];
-    let msg = args[2];
+    let msg = args[1];
 
     // fcm_token 조회
-    let fcmTokenQuery = 'select fcm_token from USER where user_idx=?'
+    let fcmTokenQuery = 'select * from USER where user_idx=?'
     let fcmTokenResult = await db.execute2(fcmTokenQuery, user_idx);
+
+    console.log(1,fcmTokenResult);
 
     /** 발송할 Push 메시지 내용 */
     let client_token = fcmTokenResult[0].fcm_token;
+    let name = fcmTokenResult[0].name;
+
+    console.log(2, client_token);
+    console.log(3, name);
 
     let push_data = {
 
@@ -25,7 +30,7 @@ module.exports = {
 
       // App이 실행중이지 않을 때 상태바 알림으로 등록할 내용
       notification: {
-        title: project_name,
+        name:name,
         body: msg,
         sound: "default",
         click_action: "FCM_PLUGIN_ACTIVITY"
@@ -34,12 +39,8 @@ module.exports = {
       // 메시지 중요도
       priority: "high",
       // App 패키지 이름
-      restricted_package_name: "org.sopt.kb_today",
+      restricted_package_name: "com.kb.challenge.app.today.today_android",
 
-      // data:{
-      //   title: project_name,
-      //   body:msg
-      // }
 
     };
 
@@ -49,6 +50,7 @@ module.exports = {
         return -1;
       }
 
+      console.log("Push메시지가 발송되었습니다.");
     });
 
     return;

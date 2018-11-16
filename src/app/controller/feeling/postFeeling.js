@@ -10,7 +10,6 @@ router.post('/', async (req, res, next) => {
 
     const ID = jwt.verify(req.headers.authorization);
     const today_at = mmt().format("YYYY-MM-DD");
-    console.log(today_at);
 
     
     if (ID != -1) {
