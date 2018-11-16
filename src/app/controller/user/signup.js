@@ -3,10 +3,13 @@ const router = express.Router();
 const db = require('../../module/pool.js');
 const jwt = require('../../module/jwt');
 const signup = require('../../model/req/SignupReq');
+const upload = require('../../../config/multer');
+
+var multiUpload = upload.fields([{ name: 'profile_url' }]);
 
 // 이메일 중복 체크
 
-router.post('/check',async (req, res, next) => {
+router.post('/check', async (req, res, next) => {
     const user_ID = req.body.id;
     const QUERY = 'select * from USER where user_ID = ?';
 
@@ -26,16 +29,17 @@ router.post('/check',async (req, res, next) => {
 });
 
 //회원가입 
-
-router.post('/', async (req, res, next) => {
+router.post('/',async (req, res, next) => {
 
     const QUERY = 'insert into USER set ?';
+
     let newUser = signup.new(req.body);
     let inserted = await db.execute2(QUERY, newUser);
 
+
     if (inserted == undefined) {
         res.status(405).send({
-            message: 'please check email'
+            message: 'please check id'
         });
     } else {
         res.status(201).send({

@@ -15,4 +15,7 @@ router.use('/user', updateUser);
 const getUser = require('./getUser');
 router.use('/user', getUser);
 
+const getName = require('./getName');
+router.use('/user', getName);
+
 module.exports = router;

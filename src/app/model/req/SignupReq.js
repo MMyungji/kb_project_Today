@@ -6,6 +6,7 @@ module.exports = {
             user_ID : body.id,
            // name : body.name,
             user_passwd: hash.encoding(body.passwd)
+
         };
         return newUser;
     }
