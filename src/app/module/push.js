@@ -67,13 +67,7 @@ module.exports = {
                 msg: msg
             };
 
-            await fcm.send(user_idx, message, function(err, response){
-                if (err) {
-                    console.log("Push메시지 발송에 실패했습니다.");
-                    return;
-                } 
-                console.log("Push메시지가 발송되었습니다.", response);
-            });
+            await fcm.fcmSend(user_idx, message);
         }
     }
 };

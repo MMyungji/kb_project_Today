@@ -27,7 +27,8 @@ router.get('/', async (req, res, next) => {
 
 
     feeling.find({
-      user_idx: ID
+      user_idx: ID,
+      good:{$gt:0}
     }, async function (err, result) {
       if (err) {
         return res.status(500).send({

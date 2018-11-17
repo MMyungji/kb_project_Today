@@ -5,7 +5,7 @@ const fcm = new FCM(fcmserverkey);
 
 module.exports = {
 
-  send: async (...args) => {
+  fcmSend: async (...args) => {
 
     let user_idx = args[0];
     let msg = args[1];
@@ -45,13 +45,15 @@ module.exports = {
     };
 
     fcm.send(push_data, function (err, response) {
-
-      if (err) {
-        return -1;
-      }
-
-      console.log("Push메시지가 발송되었습니다.");
-    });
+     if (err) {
+      console.log("FCM Failure. Something has gone wrong!");
+      console.log(1, err);
+      console.log(2, response);
+      return -1;
+    } else {
+      console.log("Successfully sent with response: ", response);
+    }
+  });
 
     return;
   }
