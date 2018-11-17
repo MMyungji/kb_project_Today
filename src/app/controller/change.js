@@ -5,7 +5,7 @@ const upload = require('../../config/multer');
 
 var multiUpload = upload.fields([{ name: 'img' }]);
 
-
+//comfort 이미지 삽입
 router.post('/', multiUpload, async (req, res, next) => {
     const QUERY = 'insert into COMFORT set ?';
     let tempArray = [];

@@ -4,18 +4,21 @@ const db = require('../../module/pool.js');
 const jwt = require('../../module/jwt.js');
 
 
-router.get('/name', async (req, res) => {
+router.get('/time', async (req, res) => {
   const ID = jwt.verify(req.headers.authorization);
   const profile = 'select * from USER where user_idx = ?';
 
   if (ID != -1) {
     let result = await db.execute2(profile, ID);
-    name = result[0].name;
+    let time = result[0].push_time.toString();
+    var timeArr = time.split(':')
 
-    if (name) {
+    if (time) {
       res.status(200).send({
         message: "success",
-        name : name
+        hour:timeArr[0],
+        minute:timeArr[1],
+        second:timeArr[2]
       });
 
     } else {

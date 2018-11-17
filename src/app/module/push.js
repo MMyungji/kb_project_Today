@@ -14,13 +14,11 @@ const QUERY = 'select * from USER where user_idx = ?';
 module.exports = {
 
     push_message : async (...args) => {
-        const name = args[0];
+        const user_idx = args[0];
 
-        var msg = {
-            to : name,
-            msg: "오늘 기분 어때요? 알려주세요!"
-        };
-        fcm.send(message, function(err, response){
+        var msg = "오늘 기분 어때요? 알려주세요!";
+        
+        fcm.send(user_idx, msg, function(err, response){
             if (err) {
                 console.log("Push메시지 발송에 실패했습니다.");
                 return;
@@ -54,7 +52,7 @@ module.exports = {
                       totalMoney += result[i].saving_money;
                   }
               }
-            });
+          });
 
             if(goalMoney == totalMoney){
                 var msg = "목표 금액에 도달했어요!";
@@ -62,12 +60,16 @@ module.exports = {
             else{
                 var msg = "저금통에" + totalMoney + "원이 쌓였어요! 조금만 힘내면 목표액에 도달합니다!";
             }
-            var message = {
-                to : name,
-                msg: msg
-            };
+            var message = msg;
 
-            await fcm.fcmSend(user_idx, message);
+            await fcm.fcmSend(user_idx, message, function(err,res) {
+               if (err) {
+                  console.log("PUSH Failure. Something has gone wrong!");
+                  return -1;
+              } 
+              console.log("Successfully PUSH sent with response: ", res);
+
+          });
         }
     }
 };

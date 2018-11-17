@@ -9,6 +9,7 @@ module.exports = {
 
     let user_idx = args[0];
     let msg = args[1];
+    console.log("msg : ",msg);
 
     // fcm_token 조회
     let fcmTokenQuery = 'select * from USER where user_idx=?'
@@ -30,7 +31,7 @@ module.exports = {
 
       // App이 실행중이지 않을 때 상태바 알림으로 등록할 내용
       notification: {
-        name:name,
+        title: name+"님!",
         body: msg,
         sound: "default",
         click_action: "FCM_PLUGIN_ACTIVITY"
@@ -41,7 +42,10 @@ module.exports = {
       // App 패키지 이름
       restricted_package_name: "com.kb.challenge.app.today.today_android",
 
-
+      data:{
+        title: name+"님!",
+        body: msg
+      }
     };
 
     fcm.send(push_data, function (err, response) {
@@ -50,9 +54,9 @@ module.exports = {
       console.log(1, err);
       console.log(2, response);
       return -1;
-    } else {
+    } 
       console.log("Successfully sent with response: ", response);
-    }
+    
   });
 
     return;

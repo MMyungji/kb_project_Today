@@ -36,7 +36,6 @@ router.get('/', async (req, res, next) => {
         });
       } else {
         for (let i = 0; i < result.length; i++) {
-          
           let temp = {
             today_at : "",
             good : "",
