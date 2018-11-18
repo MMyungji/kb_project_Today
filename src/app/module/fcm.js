@@ -48,6 +48,8 @@ module.exports = {
       }
     };
 
+    console.log("body : ",push_data.notification.body);
+
     fcm.send(push_data, function (err, response) {
      if (err) {
       console.log("FCM Failure. Something has gone wrong!");

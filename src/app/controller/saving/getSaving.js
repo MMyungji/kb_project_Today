@@ -6,53 +6,56 @@ let saving = require('../../model/schema/saving');
 const usercheck = require('../../module/userCheck.js');
 
 
-router.get('/', function (req, res) {
-    const ID = jwt.verify(req.headers.authorization);
-    var data = new Array();
-    let now = new Date();
+router.get('/', async (req, res) => {
+  const ID = jwt.verify(req.headers.authorization);
+  var data = new Array();
+  let now = new Date();
+  var totalMoney = 0;
+
+  if (ID != -1) {
+
     var totalMoney = 0;
 
-    if (ID != -1) {
+    await saving.find({
+      user_idx: ID
+    }, async function (err, result) {
+      if (err) {
+        return res.status(500).send({
+          message: "get saving fail"
+        });
+      } else {
+        for (let i = 0; i < result.length; i++) {
 
-      saving.find({
-        user_idx: ID
-      }, async function (err, result) {
-        if (err) {
-          return res.status(500).send({
-            message: "get saving fail"
-          });
-        } else {
-          for (let i = 0; i < result.length; i++) {
-
-            let temp = {
-              saving_at : "",
-              saving_money : "",
-              comment : ""
-            }
-
-            
-            temp.saving_at = result[i].saving_at;
-            temp.saving_money = result[i].saving_money;
-            temp.comment = result[i].comment;
-            totalMoney += result[i].saving_money;
-
-
-            data.push(temp);
+          let temp = {
+            saving_at : "",
+            saving_money : "",
+            comment : ""
           }
-          res.status(200).send({
-            message: "success",
-            totalMoney : totalMoney,
-            data : data
-          });
-        }
-      }).sort({ _id : -1 }).limit(20);
-    } else {
-      res.status(401).send({
-        message: "access denied"
-      });
-    }
 
-  });
+
+          temp.saving_at = result[i].saving_at;
+          temp.saving_money = result[i].saving_money;
+          temp.comment = result[i].comment;
+          totalMoney += result[i].saving_money;
+
+          data.push(temp);
+        }
+
+        res.status(200).send({
+          message: "success",
+          totalMoney : totalMoney,
+          data : data
+        });
+      }
+    }).sort({ _id : -1 }).limit(20);
+
+  } else {
+    res.status(401).send({
+      message: "access denied"
+    });
+  }
+
+});
 
 router.get('/goal', async (req, res) => {
   const ID = jwt.verify(req.headers.authorization);

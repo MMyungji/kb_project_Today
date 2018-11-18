@@ -3,7 +3,10 @@ const router = express.Router();
 const jwt = require('../../module/jwt.js');
 let feeling = require('../../model/schema/feeling');
 const pool = require('../../module/pool.js');
-var mmt = require("moment")
+
+var mmt = require("moment");
+require('moment-timezone');
+mmt.tz.setDefault("Asia/Seoul");
 
 
 router.post('/', async (req, res, next) => {

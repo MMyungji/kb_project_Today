@@ -31,7 +31,12 @@ module.exports = {
     saveMoney : async (...args) => {
         const user_idx = args[0];
 
-        var totalMoney = 0;
+        let total = await saving.aggregate([
+          {'$match':{user_idx : user_idx}},
+          {$group : {_id :null, totalMoney:{$sum : "$saving_money"}}}
+          ]);
+        var message = "";
+        let totalMoney = total[0].totalMoney;
 
         let query = 'select * from USER where user_idx = ?';
         let goal = await db.execute2(query,user_idx);
@@ -42,34 +47,25 @@ module.exports = {
             let name = goal[0].name;
             let goalMoney = goal[0].goal_money;
 
-            await saving.find({
-                user_idx: user_idx
-            }, async function (err, result) {
-                if (err) {
-                    return -1;
-                } else {
-                  for (let i = 0; i < result.length; i++) {
-                      totalMoney += result[i].saving_money;
-                  }
-              }
-          });
 
-            if(goalMoney == totalMoney){
-                var msg = "목표 금액에 도달했어요!";
+            if(goalMoney <= totalMoney){
+                message = "목표 금액에 도달했어요!";
+
             }
             else{
-                var msg = "저금통에" + totalMoney + "원이 쌓였어요! 조금만 힘내면 목표액에 도달합니다!";
+                message = "저금통에 " + totalMoney + "원이 쌓였어요! 조금만 힘내면 목표액에 도달합니다!";
+               
             }
-            var message = msg;
+            
 
             await fcm.fcmSend(user_idx, message, function(err,res) {
-               if (err) {
-                  console.log("PUSH Failure. Something has gone wrong!");
-                  return -1;
-              } 
-              console.log("Successfully PUSH sent with response: ", res);
+             if (err) {
+              console.log("PUSH Failure. Something has gone wrong!");
+              return -1;
+          } 
+          console.log("Successfully PUSH sent with response: ", res);
 
-          });
+      });
         }
     }
 };

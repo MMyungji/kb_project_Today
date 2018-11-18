@@ -5,7 +5,9 @@ const db = require('../../module/pool.js');
 let saving = require('../../model/schema/saving');
 const push = require('../../module/push.js');
 
-var mmt = require("moment")
+var mmt = require("moment");
+require('moment-timezone');
+mmt.tz.setDefault("Asia/Seoul");
 
 router.post('/', async (req, res, next) => {
 
